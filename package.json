@@ -13,6 +13,7 @@
     "material-design-icons-iconfont": "^3.0.3",
     "register-service-worker": "^1.5.2",
     "roboto-fontface": "*",
+    "rxjs": "^6.4.0",
     "vue": "^2.6.6",
     "vue-class-component": "^6.0.0",
     "vue-property-decorator": "^7.0.0",
@@ -36,5 +37,18 @@
     "typescript": "^3.0.0",
     "vue-cli-plugin-vuetify": "^0.4.6",
     "vue-template-compiler": "^2.5.21"
+  },
+  "jest": {
+    "moduleFileExtensions": [
+      "js",
+      "ts",
+      "json",
+      "vue"
+    ],
+    "transform": {
+      ".*\\.(vue)$": "vue-jest",
+      "^.+\\.tsx?$": "ts-jest"
+    },
+    "testURL": "http://localhost/"
   }
 }
