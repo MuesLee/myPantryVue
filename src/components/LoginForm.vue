@@ -42,6 +42,7 @@
 import { mapActions } from "vuex";
 import LoginData from "@/domain/loginData";
 import store from "@/store/index";
+import router from "@/router";
 import { AccountState } from "@/store/modules/account";
 
 export default {
@@ -66,13 +67,14 @@ export default {
 };
 
 function loginImpl(loginData: LoginData) {
-  store.dispatch("loginAction", loginData).catch(err => handleLoginError(err));
-  console.log("Login success");
+  store
+    .dispatch("loginAction", loginData)
+    .then(() => router.push("home"))
+    .catch(err => handleLoginError(err));
 }
 
 function handleLoginError(err: Error) {
   store.commit("error", err);
-  console.log("Login error", err);
 }
 </script>
 
