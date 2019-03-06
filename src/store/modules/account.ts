@@ -42,7 +42,9 @@ const accountModule = {
       loginData: LoginData
     ): Promise<AccessToken> {
       const accessToken = await userService.login(loginData);
-      return commit("login", accessToken);
+      commit("login", accessToken);
+      commit("error", null);
+      return Promise.resolve(accessToken);
     }
   },
   getters: {}

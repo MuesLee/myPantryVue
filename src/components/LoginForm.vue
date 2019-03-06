@@ -33,6 +33,7 @@
             </v-layout>
           </v-card-actions>
         </v-card>
+        <v-alert v-if="!!error" :value="true" type="error">{{ error }}</v-alert>
       </v-flex>
     </v-layout>
   </v-container>
@@ -41,6 +42,7 @@
 import { mapActions } from "vuex";
 import LoginData from "@/domain/loginData";
 import store from "@/store/index";
+import { AccountState } from "@/store/modules/account";
 
 export default {
   data() {
@@ -48,9 +50,13 @@ export default {
       loginData: {
         username: "",
         password: ""
-      },
-      error: null
+      }
     };
+  },
+  computed: {
+    error(): Error | null {
+      return (store.state as AccountState).account.error;
+    }
   },
   methods: {
     login: (loginData: LoginData) => {
@@ -60,13 +66,12 @@ export default {
 };
 
 function loginImpl(loginData: LoginData) {
-  store.dispatch("loginAction", loginData).catch( err => handleLoginError(err));
+  store.dispatch("loginAction", loginData).catch(err => handleLoginError(err));
   console.log("Login success");
 }
 
-function handleLoginError(err: Error)
-{
-  store.commit('error', err);
+function handleLoginError(err: Error) {
+  store.commit("error", err);
   console.log("Login error", err);
 }
 </script>
