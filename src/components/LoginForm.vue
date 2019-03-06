@@ -10,6 +10,7 @@
             <v-form>
               <v-text-field
                 v-model="username"
+                autocomplete="username"
                 prepend-icon="person"
                 name="login"
                 label="Login"
@@ -17,6 +18,7 @@
               ></v-text-field>
               <v-text-field
                 v-model="password"
+                autocomplete="current-password"
                 id="password"
                 prepend-icon="lock"
                 name="password"
