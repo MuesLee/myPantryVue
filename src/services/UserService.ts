@@ -1,23 +1,24 @@
-import axios, { AxiosInstance, AxiosPromise, AxiosResponse } from 'axios';
-import LoginData from '@/domain/loginData';
-import AccessToken from '@/domain/accessToken';
+import axios, { AxiosInstance, AxiosPromise, AxiosResponse } from "axios";
+import LoginData from "@/domain/loginData";
+import AccessToken from "@/domain/accessToken";
+import { ACCESS_TOKEN_STORAGE_KEY } from "@/services/AuthService";
 
-const LOGIN_SUB_URL = 'login';
-const REFRESH_SUB_URL = 'refresh';
-const LOGOUT_SUB_URL = 'logout';
+const LOGIN_SUB_URL = "login";
+const REFRESH_SUB_URL = "refresh";
+const LOGOUT_SUB_URL = "logout";
 
-export default class UserService {
+class UserService {
   private userApi: AxiosInstance;
 
-  private AUTH_HEADER_PREFIX = 'Bearer ';
+  private AUTH_HEADER_PREFIX = "Bearer ";
 
   constructor() {
     this.userApi = axios.create({
       baseURL: `http://localhost:8888/users`, // ${process.env.VUE_APP_USER_API_BASE_URL}
       timeout: 5000,
       headers: {
-        'Content-Type': 'application/json',
-      },
+        "Content-Type": "application/json"
+      }
     });
   }
 
@@ -44,7 +45,15 @@ export default class UserService {
     this.userApi.defaults.headers.common.Authorization = accessToken;
     return accessToken;
   }
+
+  private getAuthHeader(): any {
+    return {
+      headers: {
+        Authorization: this.AUTH_HEADER_PREFIX + localStorage.getItem(ACCESS_TOKEN_STORAGE_KEY)
+      }
+    };
+  }
 }
+const userService = new UserService();
 
-
-
+export default userService;

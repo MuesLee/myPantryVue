@@ -39,7 +39,6 @@
   </v-container>
 </template>
 <script lang="ts">
-import { mapActions } from "vuex";
 import LoginData from "@/domain/loginData";
 import store from "@/store/index";
 import router from "@/router";
@@ -57,6 +56,9 @@ export default {
   computed: {
     error(): Error | null {
       return (store.state as AccountState).account.error;
+    },
+    redirect(): any {
+      return redirectImpl();
     }
   },
   methods: {
@@ -66,10 +68,15 @@ export default {
   }
 };
 
+function redirectImpl(): string
+{
+  return router.currentRoute.redirectedFrom === undefined || null ? 'home' : router.currentRoute.redirectedFrom;
+}
+
 function loginImpl(loginData: LoginData) {
   store
     .dispatch("loginAction", loginData)
-    .then(() => router.push("home"))
+    .then(() => router.push( redirectImpl()))
     .catch(err => handleLoginError(err));
 }
 

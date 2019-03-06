@@ -1,8 +1,9 @@
 import ApplicationUser from "@/domain/applicationuser";
 import LoginData from "@/domain/loginData";
-import UserService from "@/services/UserService";
+import userService from "@/services/UserService";
 import decodeJwt from "@/services/JwtDecoder";
 import AccessToken from "@/domain/accessToken";
+import { ACCESS_TOKEN_STORAGE_KEY } from "@/services/AuthService";
 
 export interface AccountState {
   account: {
@@ -15,20 +16,16 @@ export interface AccountStateData {
   error: Error | null;
 }
 
-const ACCESS_TOKEN_STORAGE_KEY = "accessToken";
-
-const userService = new UserService();
 
 const accountModule = {
   state: { currentUser: null, error: null },
   mutations: {
     logout(state: AccountStateData) {
-      state.currentUser = null;
       localStorage.removeItem(ACCESS_TOKEN_STORAGE_KEY);
+      state.currentUser = null;
     },
     login(state: AccountStateData, accessToken: AccessToken) {
       const appUser = decodeJwt(accessToken.value);
-      console.log('appUser', appUser)
       state.currentUser = appUser;
       localStorage.setItem(ACCESS_TOKEN_STORAGE_KEY, accessToken.value);
     },
@@ -40,14 +37,23 @@ const accountModule = {
     async loginAction(
       { commit }: any,
       loginData: LoginData
-    ): Promise<AccessToken> {
+    ): Promise<void> {
       const accessToken = await userService.login(loginData);
       commit("login", accessToken);
       commit("error", null);
-      return Promise.resolve(accessToken);
+      return Promise.resolve();
+    },
+    async logoutAction(
+      { commit }: any
+    ): Promise<void> {
+      await userService.logout();
+      commit("logout");
+      commit("error", null);
+      return Promise.resolve();
     }
   },
   getters: {}
 };
 
 export default accountModule;
+export {ACCESS_TOKEN_STORAGE_KEY};
