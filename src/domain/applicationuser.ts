@@ -1,5 +1,3 @@
-export default interface ApplicationUser {
-    id: number;
-    username: string;
-    password: string;
+export default class ApplicationUser {
+  constructor(public username: string, public authorities: string[]) {}
 }
