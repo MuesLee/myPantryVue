@@ -28,7 +28,7 @@ class UserService {
 
     return Promise.resolve(new AccessToken(accessToken));
   }
-  public logout(): AxiosPromise {
+  public logout(): Promise<AxiosResponse> {
     return this.userApi.post(LOGOUT_SUB_URL);
   }
 

@@ -7,9 +7,7 @@
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
     "test:e2e": "vue-cli-service test:e2e",
-    "test:unit": "vue-cli-service test:unit",
-    "postinstall": "npm run typings",
-    "typings": "typings install"
+    "test:unit": "vue-cli-service test:unit"
   },
   "dependencies": {
     "axios": "^0.18.0",
@@ -52,7 +50,8 @@
     ],
     "transform": {
       ".*\\.(vue)$": "vue-jest",
-      "^.+\\.tsx?$": "ts-jest"
+      "^.+\\.tsx?$": "ts-jest",
+      "^.+\\.jsx?$": "js-jest"
     },
     "testURL": "http://localhost/"
   }
