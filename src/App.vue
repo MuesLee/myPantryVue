@@ -4,16 +4,18 @@
     <v-content>
         <router-view></router-view>
     </v-content>
+    <PantryBottomNavbar/>
   </v-app>
 </template>
 
 <script lang="ts">
 import PantryToolbar from '@/components/PantryToolbar.vue';
+import PantryBottomNavbar from '@/components/PantryBottomNavbar.vue';
 
 export default {
-  name: 'App',
+  name: 'myPantry',
   components: {
-    PantryToolbar
+    PantryToolbar, PantryBottomNavbar,
   },
   data() {
     return {
