@@ -16,7 +16,25 @@ const router = new Router({
       path: "/home",
       name: "home",
       component: () =>
-        import(/* webpackChunkName: "about" */ "./views/Home.vue"),
+        import(/* webpackChunkName: "about" */ "./views/HomeView.vue"),
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: "/pantry",
+      name: "pantry",
+      component: () =>
+        import(/* webpackChunkName: "about" */ "./views/PantryView.vue"),
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: "/shoppingList",
+      name: "shoppingList",
+      component: () =>
+        import(/* webpackChunkName: "about" */ "./views/ShoppingListView.vue"),
       meta: {
         requiresAuth: true
       }
