@@ -1,48 +1,49 @@
 <template>
     <v-bottom-nav
-      :active.sync="bottomNav"
-      :value="true"
+      :value=true
       absolute
+      :mandatory=true
       color="transparent"
     >
       <v-btn
-        color="teal"
+        color="primary"
         flat
-        value="recent"
+        @click="routeTo('shoppingList')"
       >
-        <span>Recent</span>
-        <v-icon>history</v-icon>
+        <span>Einkaufen</span>
+        <v-icon>shopping_basket</v-icon>
       </v-btn>
 
       <v-btn
-        color="teal"
+        color="primary"
         flat
-        value="favorites"
+         @click="routeTo('home')"
       >
-        <span>Favorites</span>
-        <v-icon>favorite</v-icon>
+        <span>Übersicht</span>
+        <v-icon>view_agenda</v-icon>
       </v-btn>
 
       <v-btn
-        color="teal"
+        color="primary"
         flat
-        value="nearby"
+        @click="routeTo('pantry')"
       >
-        <span>Nearby</span>
-        <v-icon>place</v-icon>
+        <span>Vorrat</span>
+        <v-icon>home</v-icon>
       </v-btn>
+
     </v-bottom-nav>
 </template>
 
 <script lang='ts'>
 import { Component, Vue } from "vue-property-decorator";
+import router from '@/router';
 
 @Component({
   components: {},
-  methods: {},
+  methods: { routeTo: target => router.push(target) },
   data () {
       return {
-        bottomNav: 'recent'
       }
     }
 })
