@@ -1,7 +1,7 @@
 import Vue from "vue";
 import Router, { Route, RouteRecord } from "vue-router";
 import LoginView from "./views/LoginView.vue";
-import authService from "@/services/AuthService";
+import store from "@/store";
 
 Vue.use(Router);
 
@@ -45,7 +45,7 @@ const router = new Router({
 
 router.beforeEach((to: Route, from: Route, next) => {
   if (to.matched.some(  (record: RouteRecord) => record.meta.requiresAuth)) {
-    if (!authService.userIsAuthenticated()) {
+    if (!store.getters.tokenIsValid) {
       next({
         path: '/login',
         query: { redirect: to.fullPath }

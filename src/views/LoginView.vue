@@ -9,7 +9,7 @@
 import { Component, Vue } from 'vue-property-decorator';
 import LoginForm from '@/components/LoginLogout/LoginForm.vue';
 import LogoutButton from '@/components/LoginLogout/LogoutButton.vue';
-import authService from "@/services/AuthService";
+import store from "@/store";
 
 
 @Component({
@@ -17,7 +17,7 @@ import authService from "@/services/AuthService";
     LoginForm, LogoutButton
   },
   computed: {
-    authed: () => authService.userIsAuthenticated()
+    authed: () => store.getters.tokenIsValid
   },
 })
 export default class LoginView extends Vue {}

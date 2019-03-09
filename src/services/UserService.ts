@@ -1,7 +1,9 @@
 import axios, { AxiosInstance, AxiosPromise, AxiosResponse } from "axios";
 import LoginData from "@/domain/loginData";
 import AccessToken from "@/domain/accessToken";
-import { ACCESS_TOKEN_STORAGE_KEY } from "@/services/AuthService";
+import { decodeAccessToken } from "@/services/JwtDecoder";
+import store from "@/store";
+import { AccountState } from "@/store/modules/account";
 
 const LOGIN_SUB_URL = "login";
 const REFRESH_SUB_URL = "refresh";
@@ -24,9 +26,13 @@ class UserService {
 
   public async login(loginData: LoginData): Promise<AccessToken> {
     const response = await this.userApi.post(LOGIN_SUB_URL, loginData);
-    const accessToken = this.extractAccessToken(response);
+    const accessTokenString = this.extractAccessToken(response);
 
-    return Promise.resolve(new AccessToken(accessToken));
+    const decodedAccessToken = decodeAccessToken(accessTokenString);
+
+    return !!decodedAccessToken
+      ? Promise.resolve(decodedAccessToken)
+      : Promise.reject(null);
   }
   public logout(): Promise<AxiosResponse> {
     return this.userApi.post(LOGOUT_SUB_URL);
@@ -34,9 +40,13 @@ class UserService {
 
   public async refreshAccessToken(): Promise<AccessToken> {
     const response = await this.userApi.post(REFRESH_SUB_URL);
-    const accessToken = this.extractAccessToken(response);
+    const accessTokenString = this.extractAccessToken(response);
 
-    return Promise.resolve(new AccessToken(accessToken));
+    const decodedAccessToken = decodeAccessToken(accessTokenString);
+
+    return !!decodedAccessToken
+      ? Promise.resolve(decodedAccessToken)
+      : Promise.reject(null);
   }
 
   private extractAccessToken(response: AxiosResponse<any>): string {
@@ -49,7 +59,10 @@ class UserService {
   private getAuthHeader(): any {
     return {
       headers: {
-        Authorization: this.AUTH_HEADER_PREFIX + localStorage.getItem(ACCESS_TOKEN_STORAGE_KEY)
+        Authorization:
+          this.AUTH_HEADER_PREFIX +
+          ((store.state as AccountState).account.accessToken as AccessToken)
+            .value
       }
     };
   }
