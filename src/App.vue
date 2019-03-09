@@ -13,7 +13,6 @@ import PantryToolbar from '@/components/PantryToolbar.vue';
 import PantryBottomNavbar from '@/components/PantryBottomNavbar.vue';
 
 export default {
-  el: '#app',
   name: 'myPantry',
   components: {
     PantryToolbar, PantryBottomNavbar,
