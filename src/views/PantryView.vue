@@ -1,19 +1,17 @@
 <template>
-<v-flex>
-  <v-subheader>Vorrat</v-subheader>
-</v-flex>
+  <v-flex>
+    <v-subheader>Vorrat</v-subheader>
+  </v-flex>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
-
+import { Component, Vue } from "vue-property-decorator";
 
 @Component({
-  components: {
-  },
-  computed: {
-  },
+  components: {},
+  computed: {}
 })
-export default class PantryView extends Vue {}
-
+export default class PantryView extends Vue {
+ 
+}
 </script>

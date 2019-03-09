@@ -1,10 +1,9 @@
 <template>
-  <v-bottom-nav
+  <v-bottom-nav app
     :active.sync="activeRouteName"
     :value="true"
-    absolute
     :mandatory="true"
-    color="transparent"
+    color="secondary"
   >
     <v-btn color="primary" flat @click="routeTo('shoppingList')" value="shoppingList">
       <span>Einkaufen</span>

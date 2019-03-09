@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <PantryToolbar/>
-    <v-content>
+    <v-content >
         <router-view></router-view>
     </v-content>
     <PantryBottomNavbar/>
@@ -13,6 +13,7 @@ import PantryToolbar from '@/components/PantryToolbar.vue';
 import PantryBottomNavbar from '@/components/PantryBottomNavbar.vue';
 
 export default {
+  el: '#app',
   name: 'myPantry',
   components: {
     PantryToolbar, PantryBottomNavbar,
