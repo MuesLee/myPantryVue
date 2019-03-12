@@ -70,8 +70,6 @@ export default {
 
 function redirectImpl(): string
 {
-  console.log('redirect', router.currentRoute.query.redirect[0]);
-
   return router.currentRoute.query.redirect === undefined || null ? 'home' : (router.currentRoute.query.redirect as string);
 }
 
