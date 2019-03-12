@@ -47,8 +47,7 @@ router.beforeEach((to: Route, from: Route, next) => {
   if (to.matched.some(  (record: RouteRecord) => record.meta.requiresAuth)) {
     if (!store.getters.tokenIsValid) {
       next({
-        path: '/login',
-        query: { redirect: to.fullPath }
+        path: '/login', query:{redirect: to.fullPath}
       });
     } else {
       next();
